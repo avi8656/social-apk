@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var plm = require('passport-local-mongoose');
-// mongoose.connect("mongodb+srv://hdangi224:hdangi224@cluster0.gilhcih.mongodb.net/facebook-clone?retryWrites=true&w=majority");
-mongoose.connect("mongodb://127.0.0.1:27017/fbclonefirse");
+mongoose.connect("mongodb+srv://aviSocial8656:Avi@1741@social.aenbmvz.mongodb.net/?retryWrites=true&w=majority");
+
 
 
 var userSchema = mongoose.Schema({
