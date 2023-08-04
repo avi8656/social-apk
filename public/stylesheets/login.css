@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap');
+
+* {
+    margin: 0%;
+    padding: 0%;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+}
+
+#login-main {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+    background-color: #ececec;
+}
+
+#login-main>img{
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    height: 10%;
+    width: 20%;
+    object-fit: cover;
+}
+
+#login-main form{
+    background-color: #fff;
+    border-radius: 6px;
+    box-shadow: 1px 5px 10px #888888;
+    width: 400px;
+    height: 40vh;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+#login-main form input{
+    width: 100%;
+    height: 50px;
+    margin-bottom: 15px;
+    padding: 0 10px;
+    font-size: 18px;
+    outline: none;
+    border-radius: 5px;
+    border: 1px solid grey;
+}
+
+.btn{
+    background-color: #0078F6;
+    font-weight: bolder;
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+#login-main form a{
+    margin: auto;
+    text-decoration: none;
+    color: #0161c8;
+    font-size: 15px;
+    margin-bottom: 20px;
+    font-weight: bolder;
+    margin-top: 10px;
+}
+
+#seprate{
+    height: .5px;
+    width: 100%;    
+    background-color: grey;
+    margin-bottom: 20px;
+}
+
+
+.btn-create{
+   height: 40px; 
+   padding: 0 20px;
+   background-color: #36A420;
+   border: none;
+   border-radius: 6px;
+   font-weight: bolder;
+   color: #fff;
+   cursor: pointer;
+   position: absolute;
+   left: 50%;
+   top: 66%;
+   transform: translate(-50%,-50%);
+}

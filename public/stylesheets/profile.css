@@ -1,0 +1,806 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+:root {
+    --primary-color-hue: 252;
+    --dark-color-lightness: 17%;
+    --light-color-lightness: 95%;
+    --white-color-lightness: 100%;
+
+    --color-white: hsl(252, 30%, var(--white-color-lightness));
+    --color-light: hsl(252, 30%, var(--light-color-lightness));
+    --color-gray: hsl(var(--primary-color-hue), 15%, 65%);
+    --color-primary: hsl(var(--primary-color-hue), 75%, 60%);
+    --color-secondary: hsl(252, 100%, 90%);
+    --color-success: hsl(120, 95%, 65%);
+    --color-danger: hsl(0, 95%, 65%);
+    --color-dark: hsl(252, 30%, var(--dark-color-lightness));
+    --color-black: hsl(252, 30%, 10%);
+
+    --border-radius: 2rem;
+    --card-border-radius: 1rem;
+    --btn-padding: 0.6rem 1rem;
+    --search-padding: 0.6rem 1rem;
+    --card-padding: 1rem;
+
+    --sticky-top-left: 5.4rem;
+    --sticky-top-right: -18rem;
+
+    --red-color: red;
+}
+
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0%;
+    outline: none;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+    border: none;
+}
+
+
+body {
+    font-family: 'Poppins', sans-serif;
+    color: var(--color-dark);
+    background: var(--color-light);
+    overflow-x: hidden;
+    line-height: 1;
+}
+
+
+body>.alluser {
+    height: max-content;
+    z-index: 9999;
+    position: fixed;
+    width: 35vw;
+    top: 7%;
+    left: 30%;
+    padding: 10px;
+    background: var(--color-white);
+    display: none;
+}
+
+body>.alluser a {
+    text-decoration: none;
+    color: var(--color-dark);
+}
+
+body>.alluser .user {
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 10px;
+    /* background: var(--color-light); */
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+body>.alluser .user:hover {
+    background: var(--color-light);
+}
+
+body>.alluser .user i {
+    font-size: 1.2rem;
+    position: absolute;
+    top: 50%;
+    left: 95%;
+    cursor: pointer;
+    transform: translate(-50%, -50%);
+}
+
+body>.alluser .user .profile-photo {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 25px;
+}
+
+body>.alluser .user .profile-photo img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+body>.alluser .user .name h1 {
+    font-size: 1rem;
+    margin-bottom: 3px;
+}
+
+/* ============================= NAV =========================== */
+
+.profile-nav {
+    width: 100%;
+    background: var(--color-white);
+    padding: 0 100px;
+    position: fixed;
+    height: 65px;
+    top: 0%;
+    z-index: 12;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.profile-nav .nav-prt1 {
+    color: var(--color-primary);
+}
+
+.profile-nav .nav-prt1 h1 {
+    font-size: 1.5rem;
+}
+
+.profile-nav .nav-prt2 {
+    background: var(--color-light);
+    border-radius: var(--border-radius);
+    padding: var(--search-padding);
+}
+
+.profile-nav .nav-prt2 input[type="search"] {
+    background: transparent;
+    width: 30vw;
+    margin-left: 1rem;
+    font-size: 0.9rem;
+    color: var(--color-dark);
+}
+
+.profile-nav .nav-prt2 input[type="search"]::placeholder {
+    color: var(--color-gray);
+}
+
+.profile-nav .nav-prt3 a {
+    margin-left: 25px;
+    font-size: 1rem;
+    color: var(--color-primary);
+    text-decoration: none;
+}
+
+.profile-nav .nav-prt3 a:nth-last-child(1) {
+    background: var(--color-danger);
+    padding: var(--btn-padding);
+    border-radius: var(--border-radius);
+    transition: all ease 300ms;
+    color: var(--color-white);
+}
+
+.profile-nav .nav-prt3 a:nth-last-child(1):hover {
+    opacity: 0.8;
+}
+
+
+/* ============= PROFILE MAIN ================= */
+
+.profile-main {
+    height: 100%;
+    width: 100%;
+    padding-top: 65px;
+    background: var(--color-light);
+}
+
+.profile-main .profile-main-top {
+    height: 72vh;
+    width: 100%;
+    background: var(--color-white);
+    padding: 0 100px;
+}
+
+.profile-main .profile-main-top .profile-main-top-prt1 .cover-photo {
+    height: 45vh;
+    width: 100%;
+    border-radius: var(--card-border-radius);
+    overflow: hidden;
+    position: relative;
+    background-image: url(../images/default_cover.jpeg);
+    background-size: cover;
+    background-position-y: 30%;
+}
+
+.profile-main .profile-main-top .profile-main-top-prt1 .cover-photo .edit {
+    position: absolute;
+    right: 3%;
+    bottom: 5%;
+}
+
+.profile-main .profile-main-top .profile-main-top-prt1 .edit button {
+    padding: var(--btn-padding);
+    font-size: .9rem;
+    background: var(--color-light);
+    border-radius: 6px;
+    color: var(--color-dark);
+    cursor: pointer;
+    opacity: .7;
+    transition: all ease 300ms;
+}
+
+.profile-main .profile-main-top .profile-main-top-prt1 .cover-photo .edit button i {
+    font-size: 1.2rem;
+    margin-right: 7px;
+}
+
+.profile-main .profile-main-top .profile-main-top-prt1 .cover-photo .edit button:hover {
+    opacity: .5;
+}
+
+.profile-main .profile-main-top .profile-main-top-prt1 .cover-photo img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.profile-main .profile-main-top .profile-main-top-prt2 {
+    height: 20vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: .1px solid var(--color-gray);
+}
+
+.profile-main .profile-main-top .profile-main-top-prt2 .left {
+    height: 100%;
+    display: flex;
+}
+
+.profile-main .profile-main-top .profile-main-top-prt2 .left .profile-pic {
+    height: 180px;
+    width: 180px;
+    border-radius: 50%;
+    background-color: #fff;
+    margin-top: -30px;
+    margin-left: 30px;
+    overflow: hidden;
+    margin-right: 30px;
+    z-index: 9;
+    border: 4px solid var(--color-white);
+    position: relative;
+    background-image: url(../images/default_profile_pic.jpeg);
+    background-size: cover;
+}
+
+.profile-main .profile-main-top .profile-main-top-prt2 .left .edit {
+    position: absolute;
+    z-index: 10;
+    left: 19%;
+    top: 63%;
+    height: 35px;
+    width: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border-radius: 50%;
+    background: var(--color-secondary);
+    border: 1px solid var(--color-primary);
+}
+
+.profile-main .profile-main-top .profile-main-top-prt2 .left .edit i {
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.profile-main .profile-main-top .profile-main-top-prt2 .left .profile-pic img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.profile-main .profile-main-top .profile-main-top-prt2 .left .name-section h1 {
+    font-size: 1.5rem;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.profile-main .profile-main-top .profile-main-top-prt2 .left .name-section h4 {
+    opacity: .8;
+    font-size: .9rem;
+}
+
+.profile-main .profile-main-top .profile-main-top-prt2 .left .name-section .freinds-pics {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.profile-main .profile-main-top .profile-main-top-prt2 .left .name-section .freinds-pics .friend-pic {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-left: -10px;
+    border: 1.5px solid var(--color-dark);
+}
+
+.profile-main .profile-main-top .profile-main-top-prt2 .left .name-section .freinds-pics .friend-pic img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.profile-main .profile-main-top .profile-main-top-prt2 .right {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.profile-main .profile-main-top .profile-main-top-prt2 .right button {
+    padding: var(--btn-padding);
+    font-size: .9rem;
+    background: var(--color-primary);
+    border-radius: 6px;
+    color: var(--color-white);
+    margin-top: 50px;
+    transition: all 300ms ease;
+    cursor: pointer;
+    outline: none;
+}
+
+.profile-main .profile-main-top .profile-main-top-prt2 .right button:hover {
+    opacity: .8;
+}
+
+.profile-main .profile-main-top .profile-main-top-prt2 .right button:nth-last-child(1) {
+    background: var(--color-light);
+    color: var(--color-dark);
+}
+
+
+.profile-main .profile-main-top .profile-main-top-prt3 {
+    display: flex;
+    gap: 25px;
+    height: 55px;
+    align-items: center;
+}
+
+.profile-main .profile-main-top .profile-main-top-prt3 h4 {
+    font-size: .9rem;
+    cursor: pointer;
+    padding: 10px;
+    transition: all ease 300ms;
+    position: relative;
+}
+
+
+.profile-main .profile-main-top .profile-main-top-prt3 h4.active {
+    color: var(--color-primary);
+}
+
+.profile-main .profile-main-top .profile-main-top-prt3 h4.active::after {
+    color: var(--color-primary);
+    position: absolute;
+    content: "";
+    height: 3px;
+    width: 80%;
+    bottom: -25%;
+    left: 10%;
+    background: var(--color-primary);
+}
+
+.profile-main .profile-main-top .profile-main-top-prt3 h4:hover {
+    border-radius: var(--card-border-radius);
+    background: var(--color-light);
+}
+
+/* ----------- bottom ----------- */
+.profile-main .profile-main-bottom {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    position: relative;
+    padding: 0px 100px;
+}
+
+.profile-main .profile-main-bottom .left {
+    height: max-content;
+    width: 40%;
+    padding-right: 10px;
+    padding-top: 20px;
+    position: sticky;
+    top: var(--sticky-top-left);
+    bottom: 0%;
+}
+
+.profile-main .profile-main-bottom .left .intro {
+    width: 100%;
+    background: var(--color-white);
+    border-radius: 6px;
+    padding: 20px 15px;
+}
+
+.profile-main .profile-main-bottom .left .intro h1 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.profile-main .profile-main-bottom .left .intro p {
+    font-size: .9rem;
+    margin-left: 10px;
+    text-align: center;
+}
+
+.profile-main .profile-main-bottom .left .intro button {
+    width: 100%;
+    padding: var(--btn-padding);
+    border-radius: var(--border-radius);
+    margin-top: 10px;
+    cursor: pointer;
+    background: var(--color-primary);
+    color: var(--color-white);
+    transition: all ease 300ms;
+    outline: none;
+}
+
+.profile-main .profile-main-bottom .left .intro button:hover {
+    opacity: .8;
+}
+
+.profile-main .profile-main-bottom .left .intro h5 {
+    font-size: .9rem;
+    font-weight: 100;
+    margin-top: 20px;
+}
+
+.profile-main .profile-main-bottom .left .intro h5 i {
+    margin-right: 10px;
+    font-size: 1.2rem;
+}
+
+.profile-main .profile-main-bottom .left .freinds {
+    width: 100%;
+    background: var(--color-white);
+    border-radius: 6px;
+    padding: 20px 15px;
+    margin-top: 15px;
+}
+
+.profile-main .profile-main-bottom .left .freinds .nav {
+    display: flex;
+    justify-content: space-between;
+}
+
+.profile-main .profile-main-bottom .left .freinds .nav .head h1 {
+    font-size: 1.2rem;
+}
+
+.profile-main .profile-main-bottom .left .freinds .nav .head p {
+    font-size: .9rem;
+    opacity: .8;
+    margin-top: 10px;
+}
+
+.profile-main .profile-main-bottom .left .freinds a {
+    color: var(--color-primary);
+}
+
+.profile-main .profile-main-bottom .left .freinds .photos-main {
+    height: 100%;
+    width: 100%;
+    margin-top: 15px;
+}
+
+.profile-main .profile-main-bottom .left .freinds .photos-main .photos {
+    display: inline-block;
+}
+
+.profile-main .profile-main-bottom .left .freinds .photos-main .photos .photo {
+    height: 150px;
+    width: 138px;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 6px;
+    margin-right: 8px;
+    cursor: pointer;
+    position: relative;
+}
+
+.profile-main .profile-main-bottom .left .freinds .photos-main .photos .photo .overlay {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.061);
+    display: none;
+}
+
+.profile-main .profile-main-bottom .left .freinds .photos-main .photos .photo:hover .overlay {
+    display: block;
+}
+
+.profile-main .profile-main-bottom .left .freinds .photos-main .photos img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.profile-main .profile-main-bottom .left .freinds .photos-main .photos p {
+    font-size: .9rem;
+}
+
+.profile-main .profile-main-bottom .right {
+    min-height: 100vh;
+    width: 60%;
+    border-radius: 6px;
+    padding-left: 10px;
+    padding-top: 20px;
+}
+
+.profile-main .profile-main-bottom .right .create-post {
+    /* background-color: red; */
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--color-white);
+    padding: 0.4rem var(--card-padding);
+    border-radius: var(--card-border-radius);
+}
+
+.profile-main .profile-main-bottom .right .create-post input[type="text"] {
+    justify-self: start;
+    width: 100%;
+    padding-left: 1rem;
+    background: transparent;
+    color: var(--color-dark);
+    margin-right: 1rem;
+}
+
+.profile-main .profile-main-bottom .right .create-post button {
+    padding: var(--btn-padding);
+    background: var(--color-primary);
+    border-radius: var(--border-radius);
+    color: var(--color-white);
+    transition: all ease 300ms;
+    width: 12%;
+    outline: none;
+}
+
+.profile-main .profile-main-bottom .right .create-post input[type="text"]:hover {
+    opacity: .8;
+    cursor: pointer;
+}
+
+.profile-main .profile-main-bottom .right .create-post .profile-photo {
+    height: 40px;
+    width: 45px;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.profile-main .profile-main-bottom .right .create-post .profile-photo img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.profile-main .profile-main-bottom .right .feeds .feed {
+    background: var(--color-white);
+    border-radius: var(--card-border-radius);
+    padding: var(--card-padding);
+    margin: 1rem 0;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    min-height: max-content;
+    max-height: 96vh;
+    position: relative;
+    overflow: hidden;
+}
+
+.profile-main .profile-main-bottom .right .feeds .feed::-webkit-scrollbar {
+    display: none;
+}
+
+.profile-main .profile-main-bottom .right .feeds .feed .action-button .bookmark span i {
+    font-size: 1.5rem;
+    color: var(--color-dark);
+    font-weight: 100;
+}
+
+.profile-main .profile-main-bottom .right .feeds .feed .action-button .interaction-buttons {
+    display: flex;
+    gap: 7px;
+    align-items: first baseline;
+}
+
+.profile-main .profile-main-bottom .right .feeds .feed .action-button .interaction-buttons span i {
+    font-size: 1.5rem;
+}
+
+.profile-main .profile-main-bottom .right .feeds .feed .action-button .interaction-buttons a h1 {
+    font-size: 1.5rem;
+}
+
+.profile-main .profile-main-bottom .right .feed .head {
+    display: flex;
+    justify-content: space-between;
+}
+
+.profile-main .profile-main-bottom .right .feed .head .edit a{
+    color: var(--color-dark);
+    text-decoration: none;
+}
+
+.profile-main .profile-main-bottom .right .feed .head .edit i{
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.profile-main .profile-main-bottom .right .feed .user {
+    display: flex;
+    gap: 1rem;
+}
+
+.profile-main .profile-main-bottom .right .feed .user .profile-photo {
+    height: 40px;
+    width: 40px;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.profile-main .profile-main-bottom .right .feed .user .profile-photo img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.profile-main .profile-main-bottom .right .feed .user .info h3 {
+    font-size: 1.17rem;
+}
+
+.profile-main .profile-main-bottom .right .feed .photo {
+    border-radius: var(--card-border-radius);
+    overflow: hidden;
+    margin: 0.7rem 0;
+    height: 42vh;
+}
+
+.profile-main .profile-main-bottom .right .feed .photo img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.profile-main .profile-main-bottom .right .feed .action-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.4rem;
+    margin: 0.6rem;
+}
+
+.profile-main .profile-main-bottom .right .feed .caption p{
+    font-weight: 500;
+}
+
+
+.profile-main .profile-main-bottom .right .liked-by {
+    display: flex;
+}
+
+.like-count2{
+    font-weight: 500;
+}
+
+.profile-main .profile-main-bottom .right .liked-by span {
+    width: 1.4rem;
+    height: 1.4rem;
+    display: block;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid var(--color-white);
+    margin-left: -0.6rem;
+}
+
+.profile-main .profile-main-bottom .right .liked-by span:first-child {
+    margin: 0;
+}
+
+.profile-main .profile-main-bottom .right .liked-by p {
+    margin-left: .0.5rem;
+}
+
+.profile-main .profile-main-bottom .right .comment-form {
+    width: 100%;
+    /* background-color: red; */
+}
+
+.profile-main .profile-main-bottom .right .comments {
+    cursor: pointer;
+    font-weight: 300;
+}
+
+.profile-main .profile-main-bottom .right .comment-form form {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.profile-main .profile-main-bottom .right .comment-form form input[type="text"] {
+    width: 85%;
+    padding: var(--btn-padding);
+    background: var(--color-light);
+}
+
+.profile-main .profile-main-bottom .right .comment-form form input[type="submit"] {
+    width: 15%;
+    padding: var(--btn-padding);
+    background: var(--color-primary);
+    color: var(--color-white);
+    transition: all ease 300ms;
+    cursor: pointer;
+}
+
+.profile-main .profile-main-bottom .right .comment-form form input[type="submit"]:hover {
+    opacity: .8;
+}
+
+.profile-main .profile-main-bottom .right #comments-main {
+    width: 100%;
+}
+
+.profile-main .profile-main-bottom .right #comments-main .comment {
+    width: fit-content;
+    display: flex;
+    margin-top: 10px;
+}
+
+.profile-main .profile-main-bottom .right #comments-main .comment .comment-left {
+    height: 100%;
+    padding-right: 10px;
+}
+
+.profile-main .profile-main-bottom .right #comments-main .comment .comment-left .comment-proPic {
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.profile-main .profile-main-bottom .right #comments-main .comment .comment-left .comment-proPic img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-main .profile-main-bottom .right #comments-main .comment .comment-right>div {
+    background: var(--color-light);
+    padding: 10px 20px 10px 10px;
+}
+
+.profile-main .profile-main-bottom .right #comments-main .comment .comment-right>div h5 {
+    font-size: .9rem;
+    margin-bottom: 2px;
+}
+
+.profile-main .profile-main-bottom .right #comments-main .comment .comment-right>div p {
+    font-size: .85rem;
+    margin-bottom: 0px;
+    font-weight: 500;
+}
+
+
+
+/* ========== FOR EDIT MODEL =========== */
+
+#editDetailsModel .modal-body form,
+#createPostModel .modal-body form {
+    display: flex;
+    flex-direction: column;
+}
+
+#editDetailsModel .modal-body form textarea,
+#createPostModel .modal-body form textarea {
+    height: 10vh;
+    width: 100%;
+    padding: var(--btn-padding);
+    background: var(--color-light);
+}
+
+#editDetailsModel .modal-body form input,
+#createPostModel .modal-body form input {
+    margin-top: 20px;
+    padding: var(--btn-padding);
+    background: var(--color-light);
+}

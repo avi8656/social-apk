@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>public</title>
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- ICONSOUT CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css"> <!-- LINK CSS -->
+    <link rel="stylesheet" href="/stylesheets/public.css">
+    </link>
+
+</head>
+
+<body>
+    <div class="story-page">
+        <div class="story-page-info">
+            <img src="./images/story-2.jpg">
+            <div class="infon">
+                <div class="pro-pic">
+                    <img src="../images/profile-1.jpg" alt="">
+                </div>
+                <p>akshay dangi</p>
+            </div>
+            <div class="progress-line">
+                <div class="progress"></div>
+            </div>
+        </div>
+        <i class="ri-close-fill"></i>
+    </div>
+
+    <div class="alluser">
+        <% alluser.forEach(function(user){ %>
+            <a href="/userPage/<%= user.id %>">
+                <div class="user">
+                    <div class="profile-photo">
+                        <img src="/images/uploads/<%= user.profileimage %>" alt="">
+                    </div>
+                    <div class="name">
+                        <h1>
+                            <%= user.first_name %>
+                                <%= user.last_name %>
+                        </h1>
+                    </div>
+                    <i class="ri-close-fill"></i>
+                </div>
+            </a>
+            <% }) %>
+    </div>
+
+
+
+
+    <nav>
+        <div class="container-main">
+            <h2 class="logo">
+                Facebook
+            </h2>
+            <div class="search-bar">
+                <i class="uil uil-search"></i>
+                <input id="message-search-alluser" type="search"
+                    placeholder="Search for creators, inspirations, and projects">
+            </div>
+            <div class="create">
+                <label class="btn btn-primary" for="create-post">Create</label>
+                <div class="profile-photo">
+                    <a href="/profile"><img src="/images/uploads/<%= loggedInuser.profileimage %>" alt=""></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- -----------------------MAIN--------------------- -->
+    <main>
+        <div class="container-main">
+            <!-- ======================LEFT====================== -->
+            <div class="left">
+                <a href="/profile" class="profile">
+                    <div class="profile-photo"><img src="/images/uploads/<%= loggedInuser.profileimage %>">
+                    </div>
+                    <div class="handle">
+                        <h4>
+                            <%= loggedInuser.first_name %>
+                                <%= loggedInuser.last_name %>
+                        </h4>
+                        <p class="text-muted">
+                            @<%= loggedInuser.first_name %>
+                        </p>
+                    </div>
+                </a>
+
+                <!-- ------------------------SIDEBAR------------------------ -->
+                <div class="sidebar">
+                    <a href="/public" class="menu-item active">
+                        <span><i class="uil uil-home"></i></span>
+                        <h3>Home</h3>
+                    </a>
+                    <a href="/freindsPage" class="menu-item">
+                        <span><i class="uil uil-users-alt"></i></span>
+                        <h3>Freinds</h3>
+                    </a>
+                    <a href="/chat" class="menu-item" id="messages-notifications">
+                        <span><i class="uil uil-envelope"><small class="notification-count">6</small></i></span>
+                        <h3>Message</h3>
+                    </a>
+                    <a href="/bookmark" class="menu-item">
+                        <span><i class="uil uil-bookmark"></i></span>
+                        <h3>Bookmark</h3>
+                    </a>
+                    <a class="menu-item" id="theme">
+                        <span><i class="uil uil-palette"></i></span>
+                        <h3>Theme</h3>
+                    </a>
+                    <a href="/logout" class="menu-item">
+                        <span><i class="ri-logout-circle-line"></i></span>
+                        <h3>Logout</h3>
+                    </a>
+                </div>
+                <!-- ------------------------END OF SIDEBAR------------------------ -->
+                <label for="create-post" class="btn btn-primary">Create Post</label>
+            </div>
+            <!-- -----------------------END OF LEFT----------------------->
+
+
+            <!-- =================MIDDLE======================= -->
+            <div class="middle">
+                <!-- ------------------------STORIES------------------------ -->
+                <div class="stories">
+                    <div class="story-self">
+                        <div class="story-self-top">
+                            <div class="profile-photo">
+                                <img src="/images/uploads/<%= loggedInuser.profileimage %>">
+                            </div>
+                            <div class="profile-photo2">
+                                <img src="/images/uploads/<%= loggedInuser.profileimage %>">
+                            </div>
+                        </div>
+                        <div class="story-self-btm">
+                            <i class="ri-add-line"></i>
+                            <p>Your Story</p>
+                        </div>
+                        <form action="/uploadStory" id="uploadStoryform" method="post" enctype="multipart/form-data">
+                            <input type="file" id="uploadStoryformInput" name="image">
+                            <input type="submit">
+                        </form>
+                    </div>
+                    <% if (loggedInuser.story) { %>
+                        <div class="story">
+                            <div class="profile-photo">
+                                <img src="/images/uploads/<%= loggedInuser.profileimage %>">
+                            </div>
+                            <p class="name">Your Story</p>
+                            <img class="story-img" src="/images/uploads/<%= loggedInuser.story %>" alt="">
+                        </div>
+                        <% } %>
+
+                            <% friends.forEach(function(user) { %>
+                                <% if (user.story && user.username !==loggedInuser.username) { %>
+                                    <div class="story">
+                                        <div class="profile-photo">
+                                            <img src="/images/uploads/<%= user.profileimage %>">
+                                        </div>
+                                        <p class="name">
+                                            <%= user.first_name %>
+                                                <%= user.last_name %>
+                                        </p>
+                                        <img class="story-img" src="/images/uploads/<%= user.story %>" alt="">
+                                    </div>
+                                    <% } %>
+                                        <% }) %>
+
+                </div>
+                <!-- ------------------------END OF STORIES------------------------ -->
+                <form action="" class="create-post">
+                    <div class="profile-photo">
+                        <img src="/images/uploads/<%= loggedInuser.profileimage %>">
+                    </div>
+                    <input data-toggle="modal" data-target="#createPostModel" type="text"
+                        placeholder="whats in your mind" id="create-post" autocomplete="off">
+                    <button>Post</button>
+                </form>
+
+                <!-- -----------------FEEDS----------------- -->
+                <div class="feeds">
+                    <% if (friends.some(user=> user.posts.length > 0)) { %>
+                        <% friends.reverse().forEach(function(user){ %>
+                            <% user.posts.forEach(function(posts){ %>
+                                <div class="feed">
+                                    <div class="head">
+                                        <div class="user">
+                                            <div class="profile-photo">
+                                                <a href="/userPage/<%= user._id %>"><img
+                                                        src="/images/uploads/<%= user.profileimage %>"></a>
+                                            </div>
+                                            <div class="info">
+                                                <h3>
+                                                    <%= user.first_name %>
+                                                        <%= user.last_name %>
+                                                </h3>
+                                                <small>
+                                                    <%= posts.date.toLocaleDateString('en-US', { year: 'numeric' ,
+                                                        month: 'short' , day: 'numeric' }) %>
+                                                </small>
+                                            </div>
+                                        </div>
+                                        <% if(loggedInuser.username===user.username){ %>
+                                            <span class="edit">
+                                                <a class="delete-post-btn" href="/delete/<%= posts._id %>"
+                                                    data-post-id="<%= posts._id %>"><i class="ri-close-line"></i></a>
+                                            </span>
+                                            <% } %>
+                                    </div>
+                                    <div class="photo">
+                                        <img src="/images/uploads/<%= posts.post %>">
+                                    </div>
+                                    <div class="action-button">
+                                        <div class="interaction-buttons">
+                                            <% if(posts.likes.includes(loggedInuser._id)){ %>
+                                                <a class="like-button" data-post-id="<%= posts._id %>">
+                                                    <h1 style="color: red;"><i class="ri-heart-fill"></i></h1>
+                                                </a>
+                                                <% }else{ %>
+                                                    <a class="like-button" data-post-id="<%= posts._id %>">
+                                                        <h1><i class="ri-heart-line"></i></h1>
+                                                    </a>
+                                                    <% } %>
+
+                                                        <span id="comment-icon" data-post-id="<%= posts._id %>"><i
+                                                                class="uil uil-comment-dots"></i></span>
+                                                        <span><i class="uil uil-share-alt"></i></span>
+                                        </div>
+                                        <div class="bookmark">
+                                            <% if(loggedInuser.bookmark.includes(posts._id)){ %>
+                                                <a class="bookmark-button" href="/bookmarkPost/<%= posts._id %>"
+                                                    data-post-id="<%= posts._id %>">
+                                                    <span><i class="ri-bookmark-fill"></i></span>
+                                                </a>
+                                                <% } else { %>
+                                                    <a class="bookmark-button" href="/bookmarkPost/<%= posts._id %>"
+                                                        data-post-id="<%= posts._id %>">
+                                                        <span><i class="ri-bookmark-line"></i></span>
+                                                    </a>
+                                                    <% } %>
+                                        </div>
+                                    </div>
+                                    <div class="liked-by">
+                                        <p class="like-count2">Liked by
+                                           <b><%= posts.likes.length %> others</b> 
+                                        </p>
+                                    </div>
+                                    <div class="caption">
+                                        <p><b>
+                                                <%= user.first_name %>
+                                                    <%= user.last_name %>
+                                            </b>
+                                            <%= posts.description%> <span class="harsh-tag">#lifestyle</span>
+                                        </p>
+                                    </div>
+                                    <div class="comment-form" id="comment-form-<%= posts._id %>">
+                                        <form id="comment-form" method="post" data-post-id="<%= posts._id %>"
+                                            action="/comment/<%= posts._id %>">
+                                            <input id="comment-input" type="text" name="comment"
+                                                placeholder="write comment...." autocomplete="off">
+                                            <input type="submit" value="Comment">
+                                        </form>
+                                    </div>
+                                    <div class="comments text-muted comment-count-<%= posts._id %>">
+                                        <a>View all <%= posts.comment.length %> comments</a>
+                                    </div>
+
+                                    <div id="comments-main" class="comment-section-<%= posts._id %>">
+                                        <% posts.comment.reverse().forEach(function (comment) { %>
+                                            <div class="comment">
+                                                <div class="comment-left">
+                                                    <div class="comment-proPic">
+                                                        <img src="/images/uploads/<%= comment.userpic %>" alt="">
+                                                    </div>
+                                                </div>
+                                                <div class="comment-right">
+                                                    <div>
+                                                        <h5> <b>
+                                                                <%= comment.user %>
+                                                            </b></h5>
+                                                        <p>
+                                                            <%= comment.text %>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <% })%>
+
+                                    </div>
+                                </div>
+                                <% }) %>
+                                    <% }) %>
+                                        <% }else{ %>
+                                            <p style="margin-top: 30px; margin-left: 10px"><b>
+                                                    <%= loggedInuser.first_name %>
+                                                </b> you have no posts yet 😒</p>
+                                            <% } %>
+                </div>
+                <!-- -----------------END OF FEEDS----------------- -->
+            </div>
+            <!-- ==========================END OF MIDDLE================== -->
+
+
+
+            <!-- ==========================RIGHT================== -->
+            <div class="right">
+                <div class="messeges">
+                    <div class="heading">
+                        <h4>Messeges</h4> <i class="uil uil-edit"></i>
+                    </div>
+                    <!-- ---------SEARCH BAR---------------- -->
+                    <div class="search-bar">
+                        <i class="uil uil-search"></i>
+                        <input type="search" placeholder="Search messaegs" id="message-search">
+                    </div>
+                    <!-- ---------SEARCH CATOGORY---------------- -->
+                    <div class="category">
+                        <h6 class="active">Primary</h6>
+                        <h6>Genral</h6>
+                        <!-- <h6 class="messege-requests">Request(7)</h6> -->
+                    </div>
+                    <!-- -------------MESSGES------------ -->
+                    <% friends2.forEach(function(user){ %>
+                        <a href="/chat">
+                            <div style="cursor: pointer;" class="message">
+                                <div class="profile-photo">
+                                    <img src="/images/uploads/<%= user.profileimage %>">
+                                    <div class="active"></div>
+                                </div>
+                                <div class="message-body">
+                                    <h5>
+                                        <%= user.first_name %>
+                                            <%= user.last_name %>
+                                    </h5>
+                                    <p class="text-muted">Just woke up bruh</p>
+                                </div>
+                            </div>
+                        </a>
+                        <% }) %>
+                </div>
+                <!-- -------------END OF MESSGES------------ -->
+
+
+                <!-- -------------FREIND REQUESTS------------ -->
+                <div class="friend-requests">
+                    <% if(friendRequests.length>0){ %>
+                        <h4>Requests</h4>
+                        <%}else{ %>
+                            <h4 style="display: none;">Requests</h4>
+                            <% } %>
+                                <% friendRequests.forEach(function(friend_request){ %>
+                                    <div class="request">
+                                        <div class="info">
+                                            <div class="profile-photo">
+                                                <img src="/images/uploads/<%= friend_request.profileimage %>">
+                                            </div>
+                                            <div>
+                                                <h5>
+                                                    <%= friend_request.first_name %>
+                                                        <%= friend_request.last_name %>
+                                                </h5>
+                                                <p class="text-muted">
+                                                    8 mutual freinds
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="action">
+                                            <a href="/freinds/<%= friend_request.id%>"><button class="btn btn-primary">
+                                                    Accept
+                                                </button></a>
+                                            <a href="/deleteFreindRequest/<%= friend_request.id%>"><button class="btn">
+                                                    Decline
+                                                </button></a>
+                                        </div>
+                                    </div>
+                                    <% }) %>
+                </div>
+            </div>
+            <!-- ==================END OF RIGHT================= -->
+        </div>
+    </main>
+
+    <!-- =========================THEME CUSTOMIZATION======================== -->
+    <div class="customize-theme">
+        <div class="card">
+            <h2>Customize your view</h2>
+            <p class="text-muted">Manage your color.</p>
+            <!-- ----------------PRIMARY COLORS---------------- -->
+            <div class="color">
+                <h4>Color</h4>
+                <div class="choose-color">
+                    <span class="color-1 active"></span>
+                    <span class="color-2"></span>
+                    <span class="color-3"></span>
+                    <span class="color-4"></span>
+                    <span class="color-5"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create post Modal -->
+    <div class="modal fade" id="createPostModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Create a post</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="/uploadPost" id="uploadform" method="post" enctype="multipart/form-data">
+                        <textarea name="description" id="description" placeholder="What's in your mind ?"></textarea>
+                        <input type="file" name="image">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Post</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.2/axios.min.js"
+        integrity="sha512-NCiXRSV460cHD9ClGDrTbTaw0muWUBf/zB/yLzJavRsPNUl9ODkUVmUHsZtKu17XknhsGlmyVoJxLg/ZQQEeGA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="./javascripts/chating.js"></script>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script src="./javascripts/script.js"></script>
+    <script src="./javascripts/profile.js"></script>
+    <script>
+
+        let story = document.querySelectorAll(".middle .stories .story");
+        let storyPage = document.querySelector(".story-page");
+        let closeStoryPage = document.querySelector('.story-page i');
+        let progressBar = document.querySelector('.progress');
+        let timeoutId;
+
+        story.forEach(function (story) {
+            story.addEventListener("click", function () {
+                console.log(story);
+                clearTimeout(timeoutId);
+                storyPage.style.display = "flex";
+                progressBar.style.width = "0%";
+                timeoutId = setTimeout(() => {
+                    storyPage.style.display = "none";
+                }, 5000);
+                animateProgressBar();
+
+                // get value from clicked story user
+                const profilePhoto = story.querySelector(".profile-photo img");
+                const name = story.querySelector(".name").textContent;
+                const storyImg = story.querySelector(".story-img").getAttribute("src");
+
+                // implement it in the storypage 
+                const storyPageProfilePhoto = storyPage.querySelector(".pro-pic img");
+                const storyPageName = storyPage.querySelector(".infon p");
+                const storyPageStoryImg = storyPage.querySelector(".story-page-info img");
+
+                storyPageProfilePhoto.src = profilePhoto.src;
+                storyPageName.textContent = name;
+                storyPageStoryImg.src = storyImg;
+            });
+        });
+
+        closeStoryPage.addEventListener('click', function () {
+            clearTimeout(timeoutId);
+            storyPage.style.display = "none";
+            progressBar.style.width = "0%";
+        });
+
+        function animateProgressBar() {
+            let width = 0;
+            let duration = 5;
+            let step = 1;
+            let totalSteps = 100 / step;
+            let intervalId = setInterval(() => {
+                width += step;
+                progressBar.style.width = `${width}%`;
+                if (width >= 100) {
+                    clearInterval(intervalId);
+                }
+            }, duration);
+        }
+
+
+        var storySelf = document.querySelector(".story-self");
+        var uploadStoryform = document.querySelector("#uploadStoryform");
+        var uploadStoryformInput = document.querySelector("#uploadStoryformInput");
+
+
+        storySelf.addEventListener('click', function () {
+            uploadStoryformInput.click();
+        });
+
+        uploadStoryform.addEventListener('change', function () {
+            uploadStoryform.submit();
+        });
+
+    </script>
+</body>
+
+</html>

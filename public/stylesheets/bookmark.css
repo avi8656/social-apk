@@ -1,0 +1,499 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+:root {
+    --primary-color-hue: 252;
+    --dark-color-lightness: 17%;
+    --light-color-lightness: 95%;
+    --white-color-lightness: 100%;
+
+    --color-white: hsl(252, 30%, var(--white-color-lightness));
+    --color-light: hsl(252, 30%, var(--light-color-lightness));
+    --color-gray: hsl(var(--primary-color-hue), 15%, 65%);
+    --color-primary: hsl(var(--primary-color-hue), 75%, 60%);
+    --color-secondary: hsl(252, 100%, 90%);
+    --color-success: hsl(120, 95%, 65%);
+    --color-danger: hsl(0, 95%, 65%);
+    --color-dark: hsl(252, 30%, var(--dark-color-lightness));
+    --color-black: hsl(252, 30%, 10%);
+
+    --border-radius: 2rem;
+    --card-border-radius: 1rem;
+    --btn-padding: 0.6rem 1rem;
+    --search-padding: 0.6rem 1rem;
+    --card-padding: 1rem;
+
+    --sticky-top-left: 5.4rem;
+    --sticky-top-right: -18rem;
+
+    --red-color: red;
+}
+
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0%;
+    outline: none;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+    border: none;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    color: var(--color-dark);
+    background: var(--color-light);
+    overflow-x: hidden;
+}
+
+
+body>.alluser {
+    height: max-content;
+    z-index: 9999;
+    position: fixed;
+    width: 35vw;
+    top: 7%;
+    left: 30%;
+    padding: 10px;
+    background: var(--color-white);
+    display: none;
+}
+
+body>.alluser a {
+    text-decoration: none;
+    color: var(--color-dark);
+}
+
+body>.alluser .user {
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 10px;
+    /* background: var(--color-light); */
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+body>.alluser .user:hover {
+    background: var(--color-light);
+}
+
+body>.alluser .user i {
+    font-size: 1.2rem;
+    position: absolute;
+    top: 50%;
+    left: 95%;
+    cursor: pointer;
+    transform: translate(-50%, -50%);
+}
+
+body>.alluser .user .profile-photo {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 25px;
+}
+
+body>.alluser .user .profile-photo img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+body>.alluser .user .name h1 {
+    font-size: 1rem;
+    margin-bottom: 3px;
+}
+
+
+/* GENRAL STYLES */
+.container {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.profile-photo {
+    width: 2.7rem;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+img {
+    display: block;
+    width: 100%;
+}
+
+.btn {
+    display: inline-block;
+    padding: var(--btn-padding);
+    font-weight: 500;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: all 300ms ease;
+    font-size: 0.9rem;
+}
+
+.btn:hover {
+    opacity: .8;
+}
+
+.btn-primary {
+    background: var(--color-primary);
+    color: white;
+}
+
+.text-bold {
+    font-weight: 500;
+}
+
+.text-muted {
+    color: var(--color-gray);
+}
+
+
+/* ===========NAVBAR================ */
+nav {
+    width: 100%;
+    background: var(--color-white);
+    padding: 0.7rem 0;
+    position: fixed;
+    top: 0%;
+    z-index: 10;
+}
+
+nav .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 100px;
+}
+
+nav .container .logo {
+    color: var(--color-primary);
+}
+
+.search-bar {
+    background: var(--color-light);
+    border-radius: var(--border-radius);
+    padding: var(--search-padding);
+}
+
+.search-bar input[type="search"] {
+    background: transparent;
+    width: 30vw;
+    margin-left: 1rem;
+    font-size: 0.9rem;
+    color: var(--color-dark);
+}
+
+body.dark .search-bar input[type="search"],
+body.dark .search-bar input[type="search"]::placeholder {
+    color: white;
+}
+
+
+
+nav .search-bar input[type="search"]::placeholder {
+    color: var(--color-gray);
+}
+
+nav .create {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+nav .create>a {
+    background: var(--color-danger);
+    padding: var(--btn-padding);
+    border-radius: var(--border-radius);
+    color: var(--color-white);
+    font-size: .8rem;
+}
+
+
+
+/* ======================MAIN=================== */
+main {
+    position: relative;
+    top: 5.4rem;
+}
+
+main .container {
+    display: grid;
+    grid-template-columns: 18vw auto 0vw;
+    column-gap: 2rem;
+    position: relative;
+    padding: 0 100px;
+}
+
+/* ======================LEFT=================== */
+main .container .left {
+    height: max-content;
+    position: sticky;
+    top: var(--sticky-top-left);
+}
+
+main .container .left .profile {
+    padding: var(--card-padding);
+    background: var(--color-white);
+    border-radius: var(--card-border-radius);
+    display: flex;
+    align-items: center;
+    column-gap: 1rem;
+    width: 100%;
+    color: var(--color-dark);
+    text-decoration: none;
+}
+
+/* ======================SIDEBAR=================== */
+.left .sidebar {
+    margin-top: 1rem;
+    background: var(--color-white);
+    border-radius: var(--card-border-radius);
+}
+
+.left .sidebar .menu-item {
+    display: flex;
+    align-items: center;
+    height: 4rem;
+    cursor: pointer;
+    transition: all 300ms ease;
+    position: relative;
+    gap: 30px;
+    color: var(--color-dark);
+}
+
+.left .sidebar .menu-item:hover {
+    background: var(--color-light);
+}
+
+.left .sidebar i {
+    font-size: 1.4rem;
+    color: var(--color-gray);
+    margin-left: 2rem;
+    position: relative;
+}
+
+.left .sidebar i .notification-count {
+    background: var(--color-danger);
+    color: white;
+    font-size: 0.7rem;
+    width: fit-content;
+    border-radius: 0.8rem;
+    padding: 0.1rem 0.4rem;
+    position: absolute;
+    top: -0.2rem;
+    right: -0.3rem;
+}
+
+.left.sidebar h3 {
+    margin-left: 1.5rem;
+    font-size: 1rem;
+}
+
+.left .sidebar .active {
+    background: var(--color-light);
+}
+
+.left .sidebar .active i,
+.left .sidebar .active h3 {
+    color: var(--color-primary);
+}
+
+.left .sidebar .active::before {
+    content: "";
+    display: block;
+    width: 0.5rem;
+    height: 100%;
+    position: absolute;
+    background: var(--color-primary);
+}
+
+.left .sidebar .menu-item:first-child.active {
+    border-top-left-radius: var(--card-border-radius);
+    overflow: hidden;
+}
+
+.left .sidebar .menu-item:last-child.active {
+    border-bottom-left-radius: var(--card-border-radius);
+    overflow: hidden;
+}
+
+/* ========== RIGHT ============== */
+main .container .right {
+    min-height: 80vh;
+    width: 90%;
+}
+
+/* --------------------------FEEDS------------------- */
+main .container .right .feeds .feed {
+    background: var(--color-white);
+    border-radius: var(--card-border-radius);
+    padding: var(--card-padding);
+    margin: 1rem 0;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    height: max-content;
+}
+
+main .container .right .feeds .feed::-webkit-scrollbar {
+    display: none;
+}
+
+main .container .right .feeds .feed .action-button .bookmark span i {
+    font-size: 1.5rem;
+}
+
+main .container .right .feeds .feed .action-button .bookmark a {
+    color: var(--color-dark);
+}
+
+main .container .right .feeds .feed .action-button .interaction-buttons{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+main .container .right .feeds .feed .action-button .interaction-buttons .like-button h1{
+    font-weight: 100;
+}
+
+main .container .right .feeds .feed .action-button .interaction-buttons span i {
+    font-size: 1.5rem;
+}
+
+main .container .right .feed .head {
+    display: flex;
+    justify-content: space-between;
+}
+
+main .container .right .feed .head .edit a{
+    text-decoration: none;
+    color: var(--color-dark);
+}
+
+main .container .right .feed .head .edit i {
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+main .container .right .feed .user {
+    display: flex;
+    gap: 1rem;
+}
+
+main .container .right .feed .photo {
+    border-radius: var(--card-border-radius);
+    overflow: hidden;
+    margin: 0.7rem 0;
+}
+
+main .container .right .feed .action-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.4rem;
+    margin: 0.6rem;
+}
+
+main .container .right .liked-by {
+    display: flex;
+}
+
+main .container .right .liked-by span {
+    width: 1.4rem;
+    height: 1.4rem;
+    display: block;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid var(--color-white);
+    margin-left: -0.6rem;
+}
+
+main .container .right .liked-by span:first-child {
+    margin: 0;
+}
+
+main .container .right .liked-by p {
+    margin-left: .0.5rem;
+}
+
+main .container .right .feed .comment-form {
+    width: 100%;
+    margin-top: 15px;
+    /* background-color: red; */
+}
+
+main .container .right .feed .comment-form form {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+main .container .right .feed .comment-form form input[type="text"] {
+    width: 85%;
+    padding: var(--btn-padding);
+    background: var(--color-light);
+}
+
+main .container .right .feed .comment-form form input[type="submit"] {
+    width: 15%;
+    padding: var(--btn-padding);
+    background: var(--color-primary);
+    color: var(--color-white);
+    transition: all ease 300ms;
+    cursor: pointer;
+}
+
+main .container .right .feed .comment-form form input[type="submit"]:hover {
+    opacity: .8;
+}
+
+main .container .right .feed #comments-main {
+    width: 100%;
+}
+
+main .container .right .feed #comments-main .comment {
+    width: fit-content;
+    display: flex;
+    margin-top: 10px;
+}
+
+main .container .right .feed #comments-main .comment .comment-left {
+    height: 100%;
+    padding-right: 10px;
+}
+
+main .container .right .feed #comments-main .comment .comment-left .comment-proPic {
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+main .container .right .feed #comments-main .comment .comment-left .comment-proPic img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+main .container .right .feed #comments-main .comment .comment-right>div {
+    background: var(--color-light);
+    padding: 10px 20px 10px 10px;
+}
+
+main .container .right .feed #comments-main .comment .comment-right>div h5 {
+    font-size: .9rem;
+    margin-bottom: 2px;
+}
+
+main .container .right .feed #comments-main .comment .comment-right>div p {
+    font-size: .85rem;
+    margin-bottom: 0px;
+}

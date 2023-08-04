@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>public</title>
+    <!-- ICONSOUT CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css"> <!-- LINK CSS -->
+    <link rel="stylesheet" href="./stylesheets/profile.css">
+    </link>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+</head>
+
+<body>
+
+    <div class="alluser">
+        <% alluser.forEach(function(user){ %>
+            <a href="/userPage/<%= user.id %>">
+                <div class="user">
+                    <div class="profile-photo">
+                        <img src="/images/uploads/<%= user.profileimage %>" alt="">
+                    </div>
+                    <div class="name">
+                        <h1>
+                            <%= user.first_name %>
+                                <%= user.last_name %>
+                        </h1>
+                    </div>
+                    <i class="ri-close-fill"></i>
+                </div>
+            </a>
+            <% }) %>
+    </div>
+    <!-- ======== MAIN ============== -->
+    <div class="profile-nav">
+        <div class="nav-prt1">
+            <h1>Facebook</h1>
+        </div>
+        <div class="nav-prt2">
+            <i class="uil uil-search"></i>
+            <input id="message-search-alluser" type="search"
+                placeholder="Search for creators, inspirations, and projects">
+        </div>
+        <div class="nav-prt3">
+            <a href="/public">Home</a>
+            <a href="/logout">Log out</a>
+        </div>
+    </div>
+    <div class="profile-main">
+        <div class="profile-main-top">
+            <div class="profile-main-top-prt1">
+                <div class="cover-photo">
+                    <div class="edit">
+                        <button><i class="ri-camera-3-fill"></i>Edit cover photo</button>
+                        <form style="display: none;" id="uploadCoverform" action="/uploadCover" method="post"
+                            enctype="multipart/form-data">
+                            <input id="cover-photo-input" type="file" name="image" />
+                            <button type="submit">Upload Cover Photo</button>
+                        </form>
+                    </div>
+                    <img src="./images/uploads/<%= loggedInuser.cover_photo %>">
+                </div>
+            </div>
+            <div class="profile-main-top-prt2">
+                <div class="left">
+                    <div class="edit">
+                        <i class="ri-camera-3-fill"></i>
+                    </div>
+                    <div class="profile-pic">
+                        <form style="display: none;" id="uploadProfileform" action="/uploadProfile" method="post"
+                            enctype="multipart/form-data">
+                            <input id="profile-pic-input" type="file" name="image" />
+                            <button type="submit">Upload Profile Photo</button>
+                        </form>
+                        <img src="./images/uploads/<%= loggedInuser.profileimage %>" alt="">
+                    </div>
+                    <div class="name-section">
+                        <h1>
+                            <%= loggedInuser.first_name %>
+                                <%= loggedInuser.last_name %>
+                        </h1>
+                        <h4>
+                            <%= loggedInuser.friends.friend.length %>
+                                <%= loggedInuser.friends.friend.length> 1 ? "friends" : "friend" %>
+                        </h4>
+                        <div class="freinds-pics">
+                            <% friends.slice(-6).forEach(function(user) { %>
+                                <div class="friend-pic">
+                                    <img src="/images/uploads/<%= user.profileimage %>" alt="">
+                                </div>
+                                <% }) %>
+                        </div>
+                    </div>
+                </div>
+                <div class="right">
+                    <button data-toggle="modal" data-target="#editDetailsModel"><i class="uil uil-edit-alt"></i> Edit
+                        profile</button>
+                </div>
+            </div>
+            <div class="profile-main-top-prt3">
+                <h4 class="active">Posts</h4>
+                <h4>About</h4>
+                <h4>Freinds</h4>
+                <h4>Photos</h4>
+                <h4>Videos</h4>
+                <h4>Cheks-in</h4>
+            </div>
+        </div>
+        <div class="profile-main-bottom">
+            <div class="left">
+                <div class="intro">
+                    <h1>Intro</h1>
+                    <% if (loggedInuser.newBio && loggedInuser.newBio.length> 0) { %>
+                        <p>
+                            <%= loggedInuser.newBio[0].bio %>
+                        </p>
+                        <button data-toggle="modal" data-target="#editDetailsModel">Edit bio</button>
+                        <h5><i class="ri-graduation-cap-fill"></i>Studied at <b>
+                                <%= loggedInuser.newBio[0].college %>
+                            </b>
+                        </h5>
+                        <h5><i class="ri-graduation-cap-fill"></i>Went to <b>
+                                <%= loggedInuser.newBio[0].school %>
+                            </b>
+                        </h5>
+                        <h5><i class="ri-home-4-fill"></i>Lives in <b>
+                                <%= loggedInuser.newBio[0].living_place %>
+                            </b></h5>
+                        <h5><i class="ri-map-pin-fill"></i>From <b>
+                                <%= loggedInuser.newBio[0].location %>
+                            </b></h5>
+                        <button data-toggle="modal" data-target="#editDetailsModel">Edit details</button>
+                        <% } else{ %>
+                            <button data-toggle="modal" data-target="#editDetailsModel">Create bio</button>
+                            <% } %>
+                </div>
+                <div class="freinds">
+                    <div class="nav">
+                        <div class="head">
+                            <h1>freinds</h1>
+                            <p>
+                                <%= loggedInuser.friends.friend.length %>
+                                    <%= loggedInuser.friends.friend.length> 1 ? "friends" : "friend" %>
+                            </p>
+                        </div>
+                        <a href="/freindsPage">See all freinds</a>
+                    </div>
+                    <div class="photos-main">
+                        <% if(friends.length> 0){ %>
+                            <% friends.forEach(function(user){ %>
+                                <div class="photos">
+                                    <div class="photo">
+                                        <div class="overlay"></div>
+                                        <img src="/images/uploads/<%= user.profileimage %>" alt="">
+                                    </div>
+                                    <p>
+                                        <%= user.first_name %>
+                                            <%= user.last_name %>
+                                    </p>
+                                </div>
+                                <% }) %>
+                                    <% }else{ %>
+                                        <p><b>
+                                                <%= loggedInuser.first_name %>
+                                            </b> you have no friends yet 😒</p>
+                                        <% } %>
+
+                    </div>
+                </div>
+            </div>
+            <div class="right">
+                <form action="" class="create-post">
+                    <div class="profile-photo">
+                        <img src="/images/uploads/<%= loggedInuser.profileimage %>">
+                    </div>
+                    <input data-toggle="modal" data-target="#createPostModel" type="text"
+                        placeholder="whats in your mind" id="create-post" autocomplete="off">
+                    <button>Post</button>
+                </form>
+                <div class="feeds">
+
+                    <% if(loggedInuser.posts.length>0){ %>
+                        <% loggedInuser.posts.reverse().forEach(function(posts){ %>
+                            <div class="feed">
+                                <div class="head">
+                                    <div class="user">
+                                        <div class="profile-photo">
+                                            <a href="/userPage/<%= loggedInuser._id %>"><img
+                                                    src="/images/uploads/<%= loggedInuser.profileimage %>"></a>
+                                        </div>
+                                        <div class="info">
+                                            <h3>
+                                                <%= loggedInuser.first_name %>
+                                                    <%= loggedInuser.last_name %>
+                                            </h3>
+                                            <small>
+                                                <%= posts.date.toLocaleDateString('en-US', { year: 'numeric' ,
+                                                    month: 'short' , day: 'numeric' }) %>
+                                            </small>
+                                        </div>
+                                    </div>
+                                    <span class="edit">
+                                        <a class="delete-post-btn" href="/delete/<%= posts._id %>"
+                                            data-post-id="<%= posts._id %>"><i class="ri-close-line"></i></a>
+                                    </span>
+                                </div>
+                                <div class="photo">
+                                    <img src="/images/uploads/<%= posts.post %>">
+                                </div>
+                                <div class="action-button">
+                                    <div class="interaction-buttons">
+                                        <% if(posts.likes.includes(loggedInuser._id)){ %>
+                                            <a class="like-button" data-post-id="<%= posts._id %>">
+                                                <h1 style="color: red;"><i class="ri-heart-fill"></i></h1>
+                                            </a>
+                                            <% }else{ %>
+                                                <a class="like-button" data-post-id="<%= posts._id %>">
+                                                    <h1><i class="ri-heart-line"></i></h1>
+                                                </a>
+                                                <% } %>
+
+                                                    <span id="comment-icon" data-post-id="<%= posts._id %>"><i
+                                                            class="uil uil-comment-dots"></i></span>
+                                                    <span><i class="uil uil-share-alt"></i></span>
+                                    </div>
+                                    <div class="bookmark">
+                                        <% if(loggedInuser.bookmark.includes(posts._id)){ %>
+                                            <a class="bookmark-button" href="/bookmarkPost/<%= posts._id %>"
+                                                data-post-id="<%= posts._id %>">
+                                                <span><i class="ri-bookmark-fill"></i></span>
+                                            </a>
+                                            <% } else { %>
+                                                <a class="bookmark-button" href="/bookmarkPost/<%= posts._id %>"
+                                                    data-post-id="<%= posts._id %>">
+                                                    <span><i class="ri-bookmark-line"></i></span>
+                                                </a>
+                                                <% } %>
+                                    </div>
+                                </div>
+                                <div class="liked-by">
+                                    <p class="like-count2">Liked by
+                                        <b><%= posts.likes.length %> others</b> 
+                                     </p>
+                                </div>
+                                <div class="caption">
+                                    <p><b>
+                                            <%= loggedInuser.first_name %>
+                                        </b>
+                                        <%= posts.description%> <span class="harsh-tag">#lifestyle</span>
+                                    </p>
+                                    </p>
+                                </div>
+                                <div class="comment-form" id="comment-form-<%= posts._id %>">
+                                    <form id="comment-form" method="post" data-post-id="<%= posts._id %>"
+                                        action="/comment/<%= posts._id %>">
+                                        <input id="comment-input" type="text" name="comment"
+                                            placeholder="write comment...." autocomplete="off">
+                                        <input type="submit" value="Comment">
+                                    </form>
+                                </div>
+                                <div class="comments text-muted comment-count-<%= posts._id %>">
+                                    <a>View all <%= posts.comment.length %> comments</a>
+                                </div>
+
+                                <div id="comments-main" class="comment-section-<%= posts._id %>">
+                                    <% posts.comment.reverse().forEach(function (comment) { %>
+                                        <div class="comment">
+                                            <div class="comment-left">
+                                                <div class="comment-proPic">
+                                                    <img src="/images/uploads/<%= comment.userpic %>" alt="">
+                                                </div>
+                                            </div>
+                                            <div class="comment-right">
+                                                <div>
+                                                    <h5> <b>
+                                                            <%= comment.user %>
+                                                        </b></h5>
+                                                    <p>
+                                                        <%= comment.text %>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <% })%>
+
+                                </div>
+                            </div>
+                            <% }) %>
+                                <% }else{ %>
+                                    <p style="margin-top: 30px; margin-left: 10px"><b>
+                                            <%= loggedInuser.first_name %>
+                                        </b> you have no posts yet 😒</p>
+                                    <% } %>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- =========== END OF MAN ======= -->
+
+
+
+    <!-- Edit details Modal -->
+    <div class="modal fade" id="editDetailsModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Edit your bio</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="/editDetails" method="post" id="editDetailsForm">
+                        <textarea name="bio" id="bio" placeholder="Edit your bio ......." required></textarea>
+                        <input type="text" id="college" name="college" placeholder="Enter you college Name ...."
+                            required>
+                        <input type="text" id="school" name="school" placeholder="Enter you school Name ...." required>
+                        <input type="text" id="living_place" name="living_place"
+                            placeholder="Enter your living place ......" required>
+                        <input type="text" id="location" name="location" placeholder="Enter your location ......"
+                            required>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create post Modal -->
+    <div class="modal fade" id="createPostModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Edit your bio</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="/uploadPost" id="uploadform" method="post" enctype="multipart/form-data">
+                        <textarea name="description" id="description" placeholder="What's in your mind ?"></textarea>
+                        <input type="file" name="image">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Post</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.2/axios.min.js"
+        integrity="sha512-NCiXRSV460cHD9ClGDrTbTaw0muWUBf/zB/yLzJavRsPNUl9ODkUVmUHsZtKu17XknhsGlmyVoJxLg/ZQQEeGA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script src="/javascripts/script.js"></script>
+    <script src="./javascripts/profile.js"></script>
+    <script src="./javascripts/main.js"></script>
+</body>
+
+</html>
